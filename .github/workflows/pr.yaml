@@ -14,7 +14,7 @@ on:
       - "!**/README.md"
 
 env:
-  IMAGE_ID: ${{ secrets.AWS_ECR_URI }}
+  IMAGE_ID: ${{ vars.AWS_ECR_URI }}
 
   TF_VERSION: 1.2.2
   TG_VERSION: 0.37.1
@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: actions/cache@v2
         with:
@@ -73,21 +73,21 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.TERRAFORM_DEPLOY_ROLE_ARN }}
+          role-to-assume: ${{ vars.TERRAFORM_DEPLOY_ROLE_ARN }}
           aws-region: ca-central-1
 
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - uses: peter-murray/terragrunt-github-action@v1.0.0
+      - uses: autero1/action-terragrunt@v1.3.1
         with:
           terragrunt_version: ${{ env.TG_VERSION }}
 
@@ -97,7 +97,7 @@ jobs:
         env:
           TF_CLI_ARGS: -no-color
           app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_sha }}
-          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+          LICENSE_PLATE: ${{ vars.MY_LICENSE_PLATE }}
         run: terragrunt run-all plan --terragrunt-non-interactive | tee /tmp/tg_plan
         continue-on-error: true
 
@@ -117,7 +117,7 @@ jobs:
       - name: Upload inframap
         id: inframap
         run: |
-          IMGBBURL=$(curl -s -L -X POST "https://api.imgbb.com/1/upload?key=${{ secrets.IMGBB_API_TOKEN }}" --form "image=@/tmp/inframap.png" | jq -r '.data.url')
+          IMGBBURL=$(curl -s -L -X POST "https://api.imgbb.com/1/upload?key=${{ vars.IMGBB_API_TOKEN }}" --form "image=@/tmp/inframap.png" | jq -r '.data.url')
           echo "::set-output name=imgurl::$IMGBBURL"
       - name: Get Terraform Plan Output
         id: plan
@@ -132,7 +132,7 @@ jobs:
           FAILURE: '\u274C'
           INFRAMAP_URL: ${{ steps.inframap.outputs.imgurl }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ vars.GITHUB_TOKEN }}
           script: |
             var fs = require('fs');
             var ev = JSON.parse(
