@@ -105,7 +105,7 @@ jobs:
           method: 'GET'
 
       - name: Update Pull Request
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         env:
           SUCCESS: '\u2705'
           FAILURE: '\u274C'

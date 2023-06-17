@@ -52,7 +52,7 @@ jobs:
           path: /tmp/tg_plan
 
       - name: "Download artifact"
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v6.1.0
         with:
           script: |
             var artifacts = await github.actions.listWorkflowRunArtifacts({
@@ -74,7 +74,7 @@ jobs:
       - run: unzip pr.zip
 
       - name: Update Pull Request
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         env:
           SUCCESS: '\u2705'
           FAILURE: '\u274C'
