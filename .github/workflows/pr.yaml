@@ -133,7 +133,7 @@ jobs:
           FAILURE: '\u274C'
           INFRAMAP_URL: ${{ steps.inframap.outputs.imgurl }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN }}
           script: |
             var fs = require('fs');
             var ev = JSON.parse(
