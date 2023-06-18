@@ -111,3 +111,5 @@ jobs:
           app_image: ${{ env.IMAGE_ID }}:${{ github.sha }}
           LICENSE_PLATE: ${{ vars.MY_LICENSE_PLATE }}
         run: terragrunt run-all apply --terragrunt-non-interactive
+        
+        
