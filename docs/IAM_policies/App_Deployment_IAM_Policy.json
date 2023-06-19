@@ -6,8 +6,8 @@
             "Effect": "Allow",
             "Action": [
                 "ecs:DeregisterTaskDefinition",
-                "application-autoscaling:*",
                 "ec2:Describe*",
+                "application-autoscaling:*",
                 "ecs:CreateCluster",
                 "cloudwatch:DescribeAlarmsForMetric",
                 "ecs:RegisterTaskDefinition",
@@ -20,17 +20,6 @@
             "Resource": "*"
         },
         {
-            "Sid": "s3",
-            "Effect": "Allow",
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "arn:aws:s3:::<s3-state-bucket>*/*",
-                "arn:aws:s3:::upload-bucket*"
-            ]
-        },
-        {
             "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
@@ -40,8 +29,8 @@
                 "dynamodb:DeleteTable",
                 "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
                 "cloudfront:CreateCachePolicy",
-                "cloudfront:GetDistribution",
                 "ecs:UpdateService",
+                "cloudfront:GetDistribution",
                 "cloudwatch:UntagResource",
                 "dynamodb:DescribeTable",
                 "ec2:RevokeSecurityGroupEgress",
@@ -71,10 +60,11 @@
                 "dynamodb:TagResource",
                 "cloudwatch:DisableAlarmActions",
                 "ec2:CreateSecurityGroup",
-                "cloudfront:UpdateDistribution",
                 "ecs:DescribeServices",
+                "cloudfront:UpdateDistribution",
                 "ecs:DescribeTasks",
                 "ecs:UntagResource",
+                "ecs:PutClusterCapacityProviders",
                 "cloudfront:UntagResource",
                 "ec2:AuthorizeSecurityGroupEgress",
                 "dynamodb:UntagResource",
@@ -90,27 +80,27 @@
                 "budgets:ModifyBudget"
             ],
             "Resource": [
-                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:targetgroup/sample-target-group/*",
-                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener-rule/app/default/*/*/*",
-                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener/app/default/*",
                 "arn:aws:ec2:ca-central-1:<Account-ID>:security-group/*",
                 "arn:aws:ec2:ca-central-1:<Account-ID>:vpc/*",
                 "arn:aws:budgets::<Account-ID>:budget/startup-sample-monthly/action/*",
                 "arn:aws:budgets::<Account-ID>:budget/startup-sample-monthly",
                 "arn:aws:sns:ca-central-1:<Account-ID>:startup-sample-billing-alert-topic",
-                "arn:aws:cloudwatch:ca-central-1:<Account-ID>:alarm:sample_cpu_utilization_*",
-                "arn:aws:cloudwatch:ca-central-1:<Account-ID>:insight-rule/*",
-                "arn:aws:cloudfront::<Account-ID>:cache-policy/*",
-                "arn:aws:cloudfront::<Account-ID>:streaming-distribution/*",
-                "arn:aws:cloudfront::<Account-ID>:distribution/*",
-                "arn:aws:dynamodb:ca-central-1:<Account-ID>:table/ssp-greetings",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:task-set/sample-cluster/sample-service/*",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:cluster/sample-cluster",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:task/sample-cluster/*",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:container-instance/sample-cluster/*",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:task-definition/sample-app-task:*",
                 "arn:aws:ecs:ca-central-1:<Account-ID>:service/sample-cluster/sample-service",
-                "arn:aws:ecs:ca-central-1:<Account-ID>:capacity-provider/FARGATE_SPOT"
+                "arn:aws:ecs:ca-central-1:<Account-ID>:capacity-provider/FARGATE_SPOT",
+                "arn:aws:dynamodb:ca-central-1:<Account-ID>:table/ssp-greetings",
+                "arn:aws:cloudwatch:ca-central-1:<Account-ID>:alarm:sample_cpu_utilization_*",
+                "arn:aws:cloudwatch:ca-central-1:<Account-ID>:insight-rule/*",
+                "arn:aws:cloudfront::<Account-ID>:cache-policy/*",
+                "arn:aws:cloudfront::<Account-ID>:streaming-distribution/*",
+                "arn:aws:cloudfront::<Account-ID>:distribution/*",
+                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:targetgroup/sample-target-group/*",
+                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener-rule/app/default/*/*/*",
+                "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener/app/default/*"
             ]
         },
         {
@@ -135,9 +125,9 @@
                 "iam:ListRolePolicies",
                 "sns:ListTagsForResource",
                 "iam:GetRole",
-                "sns:GetTopicAttributes",
                 "iam:GetPolicy",
                 "dynamodb:PutItem",
+                "sns:GetTopicAttributes",
                 "sns:CreateTopic",
                 "iam:DeleteRole",
                 "elasticloadbalancing:AddTags",
@@ -145,7 +135,6 @@
                 "iam:GetRolePolicy"
             ],
             "Resource": [
-                "arn:aws:sns:ca-central-1:<Account-ID>:startup-sample-billing-alert-topic",
                 "arn:aws:iam::<Account-ID>:policy/ecs_task_execution_cwlogs",
                 "arn:aws:iam::<Account-ID>:policy/sample_app_container_cwlogs",
                 "arn:aws:iam::<Account-ID>:policy/upload_bucket_policy",
@@ -153,6 +142,7 @@
                 "arn:aws:iam::<Account-ID>:role/startupSampleEcsTaskExecutionRole",
                 "arn:aws:iam::<Account-ID>:role/sample_app_container_role",
                 "arn:aws:dynamodb:ca-central-1:<Account-ID>:table/terraform-remote-state-lock-tnfhhm",
+                "arn:aws:sns:ca-central-1:<Account-ID>:startup-sample-billing-alert-topic",
                 "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:targetgroup/sample-target-group/*",
                 "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener-rule/app/default/*/*/*",
                 "arn:aws:elasticloadbalancing:ca-central-1:<Account-ID>:listener/app/default/*"
@@ -234,6 +224,15 @@
         {
             "Sid": "VisualEditor7",
             "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::<s3-state-bucket>*/*",
+                "arn:aws:s3:::upload-bucket*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor8",
+            "Effect": "Allow",
             "Action": [
                 "elasticloadbalancing:RegisterTargets",
                 "elasticloadbalancing:ModifyRule",
@@ -253,7 +252,7 @@
             ]
         },
         {
-            "Sid": "VisualEditor8",
+            "Sid": "VisualEditor9",
             "Effect": "Allow",
             "Action": [
                 "elasticloadbalancing:CreateListener",
